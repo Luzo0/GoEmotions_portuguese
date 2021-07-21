@@ -41,7 +41,7 @@ Number of epochs to run fine tuning (default = 4)\
 --warmup_proportion\
 Float number between 0 and 1 that represents the proportion for warmup (default = 0.2)\
 --beta\
-Beta parameter for weighing method Class-Balanced Loss (default = 0.9999)\
+Beta parameter for weighing method Class-Balanced Loss (default = 0.999)\
 --no_cuda\
 If passed True, gpu will not be used (default = False)\
 --seed\

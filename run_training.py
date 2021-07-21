@@ -22,8 +22,8 @@ if __name__ == "__main__":
                         help='Number of epochs to run fine tuning (default = 4)')
     parser.add_argument("--warmup_proportion", type=float, default=0.2,
                         help='Float number between 0 and 1 that represents the proportion for warmup (default = 0.2)')
-    parser.add_argument("--beta", type=float, default=0.9999,
-                        help='Beta parameter for weighing method Class-Balanced Loss (default = 0.9999)')
+    parser.add_argument("--beta", type=float, default=0.999,
+                        help='Beta parameter for weighing method Class-Balanced Loss (default = 0.999)')
     parser.add_argument("--no_cuda", type=bool, default=False,
                         help='If passed True, gpu will not be used (default = False)')
     parser.add_argument("--seed", type=int, default=42,
