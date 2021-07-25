@@ -101,7 +101,8 @@ class EmotionTagger(pl.LightningModule):
             samples_per_classes,
             beta,
             n_training_steps,
-            n_warmup_steps
+            n_warmup_steps,
+            no_cuda
     ):
         super().__init__()
         self.bert = BertForSequenceClassification.from_pretrained(model_name, num_labels=n_classes)
@@ -110,6 +111,7 @@ class EmotionTagger(pl.LightningModule):
         self.n_training_steps = n_training_steps
         self.n_warmup_steps = n_warmup_steps
         self.n_classes = n_classes
+        self.no_cuda = no_cuda
 
     def forward(self, input_ids, attention_mask, labels=None):
         output = self.bert(input_ids, attention_mask=attention_mask)
@@ -124,7 +126,8 @@ class EmotionTagger(pl.LightningModule):
                     n_classes=self.n_classes,
                     samples_per_classes=self.samples_per_classes,
                     b_labels=labels,
-                    beta=self.beta
+                    beta=self.beta,
+                    no_cuda=self.no_cuda
                 )
             )
         return loss, logits

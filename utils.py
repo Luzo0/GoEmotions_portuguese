@@ -41,7 +41,7 @@ def labels_decode(vector, mlb: MultiLabelBinarizer):
     return list(mlb.inverse_transform(label)[0])
 
 
-def class_balanced_loss(n_classes, samples_per_classes, b_labels, beta):
+def class_balanced_loss(n_classes, samples_per_classes, b_labels, beta, no_cuda):
     effective_num = 1.0 - np.power(beta, samples_per_classes)
     weights_for_samples = (1.0 - beta) / np.array(effective_num)
     weights_for_samples = weights_for_samples / np.sum(weights_for_samples) * n_classes
@@ -52,7 +52,7 @@ def class_balanced_loss(n_classes, samples_per_classes, b_labels, beta):
     weights_for_samples = weights_for_samples.sum(1)
     weights_for_samples = weights_for_samples.unsqueeze(1)
     weights_for_samples = weights_for_samples.repeat(1, n_classes)
-    if torch.cuda.is_available():
+    if torch.cuda.is_available() and not no_cuda:
         weights_for_samples = weights_for_samples.to(torch.device("cuda"))
     return weights_for_samples
 

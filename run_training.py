@@ -73,7 +73,8 @@ if __name__ == "__main__":
         samples_per_classes=samples_per_classes,
         beta=args.beta,
         n_warmup_steps=warmup_steps,
-        n_training_steps=total_training_steps
+        n_training_steps=total_training_steps,
+        no_cuda=args.no_cuda
     )
 
     checkpoint_callback = ModelCheckpoint(
