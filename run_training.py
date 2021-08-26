@@ -1,7 +1,7 @@
 import argparse
 import pytorch_lightning as pl
 import json
-from transformers import BertTokenizer
+from transformers import AutoTokenizer
 import torch
 from utils import prepare_datasets, labels_decode
 from sklearn.preprocessing import MultiLabelBinarizer
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     warmup_steps = total_training_steps * args.warmup_proportion
     samples_per_classes = [x for x in sent_freq.values()]
 
-    tokenizer = BertTokenizer.from_pretrained(args.model_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     data_module = EmotionDataModule(
         df_train,

@@ -1,6 +1,6 @@
 import os
 import torch
-from transformers import BertForSequenceClassification, BertTokenizer, AdamW, get_linear_schedule_with_warmup
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AdamW, get_linear_schedule_with_warmup
 import pandas as pd
 import pytorch_lightning as pl
 from utils import class_balanced_loss
@@ -11,7 +11,7 @@ class EmotionDataset(torch.utils.data.Dataset):
     def __init__(
         self,
         data: pd.DataFrame,
-        tokenizer: BertTokenizer,
+        tokenizer: AutoTokenizer,
         max_token_len
     ):
         self.tokenizer = tokenizer
@@ -105,7 +105,7 @@ class EmotionTagger(pl.LightningModule):
             no_cuda
     ):
         super().__init__()
-        self.bert = BertForSequenceClassification.from_pretrained(model_name, num_labels=n_classes)
+        self.bert = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=n_classes)
         self.samples_per_classes = samples_per_classes
         self.beta = beta
         self.n_training_steps = n_training_steps
