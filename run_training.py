@@ -28,6 +28,8 @@ if __name__ == "__main__":
                         help='If passed True, gpu will not be used (default = False)')
     parser.add_argument("--seed", type=int, default=42,
                         help='Seed for pseudo-random number generation for pytorch, numpy, python.random (default = 42)')
+    parser.add_argument("--taxonomy", type=str, default='original',
+                        help='Select which taxonomy to be used original or ekman (default = "original")')
 
     args = parser.parse_args()
 
@@ -35,11 +37,17 @@ if __name__ == "__main__":
 
     with open('emotion_dict.json', 'r', encoding='utf-8') as emotion_dict:
         emotion_dict = json.loads(emotion_dict.read())
+    with open('ekman_mapping.json', 'r', encoding='utf-8') as ekman_mapping:
+        ekman_mapping = json.loads(ekman_mapping.read())
 
-    label_names = list(emotion_dict.keys())
+    if args.taxonomy == 'original':
+        label_names = list(emotion_dict.keys())
+    if args.taxonomy == 'ekman':
+        label_names = list(ekman_mapping.keys())
+
     n_classes = len(label_names)
 
-    df_train, df_validation, df_test = prepare_datasets('dataset', n_classes)
+    df_train, df_validation, df_test = prepare_datasets('dataset', n_classes, args.taxonomy)
 
     sent_freq = {i: 0 for i in range(0, n_classes)}
     for label in df_train['labels']:
@@ -93,8 +101,13 @@ if __name__ == "__main__":
         progress_bar_refresh_rate=30
     )
 
-    model.bert.config.id2label = {str(id_): label for id_, label in enumerate(emotion_dict)}
-    model.bert.config.label2id = {label: id_ for id_, label in enumerate(emotion_dict)}
+    if args.taxonomy == 'original':
+        model.bert.config.id2label = {str(id_): label for id_, label in enumerate(emotion_dict)}
+        model.bert.config.label2id = {label: id_ for id_, label in enumerate(emotion_dict)}
+    if args.taxonomy == 'ekman':
+        model.bert.config.id2label = {str(id_): label for id_, label in enumerate(ekman_mapping)}
+        model.bert.config.label2id = {label: id_ for id_, label in enumerate(ekman_mapping)}
+        
     trainer.fit(model, data_module)
 
     model_to_save = model.bert

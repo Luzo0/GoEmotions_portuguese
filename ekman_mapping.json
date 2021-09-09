@@ -1,0 +1,9 @@
+{
+	"raiva": ["raiva", "aborrecimento", "desaprovação"],
+	"nojo": ["nojo"],
+	"medo": ["medo", "nervosismo"],
+	"alegria": ["alegria", "diversão", "aprovação", "entusiasmo", "gratidão",  "amor", "otimismo", "alívio", "orgulho", "admiração", "desejo", "zelo"],
+	"tristeza": ["tristeza", "decepção", "constrangimento", "luto",  "remorso"],
+	"surpresa": ["surpresa", "percepção", "confusão", "curiosidade"],
+	"neutro": ["neutro"]
+}

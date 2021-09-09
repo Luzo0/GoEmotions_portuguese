@@ -2,16 +2,21 @@ import os
 import numpy as np
 import pandas as pd
 import torch
+import json
 from sklearn.preprocessing import MultiLabelBinarizer
 
 
-def prepare_datasets(path: str, n_classes: int):
+def prepare_datasets(path: str, n_classes: int, taxonomy: str):
     df_train = pd.read_csv(os.path.join(path, 'train.tsv'), sep="\t", usecols=(1, 2))
     df_validation = pd.read_csv(os.path.join(path, 'dev.tsv'), sep="\t", usecols=(1, 2))
     df_test = pd.read_csv(os.path.join(path, 'test.tsv'), sep="\t", usecols=(1, 2))
     df_train['labels'] = df_train['labels'].apply(correct_labels_in_dataset)
     df_test['labels'] = df_test['labels'].apply(correct_labels_in_dataset)
     df_validation['labels'] = df_validation['labels'].apply(correct_labels_in_dataset)
+    if taxonomy == 'ekman':
+        df_train['labels'] = df_train['labels'].apply(ekman_labels)
+        df_test['labels'] = df_test['labels'].apply(ekman_labels)
+        df_validation['labels'] = df_validation['labels'].apply(ekman_labels)
     mlb = MultiLabelBinarizer()
     mlb.fit([[x for x in range(0, n_classes)]])
     df_train['labels'] = df_train['labels'].apply(labels_encode, args=(mlb,))
@@ -27,6 +32,24 @@ def correct_labels_in_dataset(string):
     for i, item in enumerate(aux):
         aux[i] = int(item)
     return aux
+
+
+def ekman_labels(vector):
+    with open('emotion_dict.json', 'r', encoding='utf-8') as emotion_dict:
+        emotion_dict = json.loads(emotion_dict.read())
+    with open('ekman_mapping.json', 'r', encoding='utf-8') as ekman_mapping:
+        ekman_mapping = json.loads(ekman_mapping.read())
+
+    new_vector = list()
+    for label in vector:
+        label = list(emotion_dict.keys())[list(emotion_dict.values()).index(label)]
+        for key, value in ekman_mapping.items():
+            if label in value:
+                label = key
+                break
+        label = list(ekman_mapping.keys()).index(label)
+        new_vector.append(label)
+    return new_vector
 
 
 def labels_encode(vector, mlb: MultiLabelBinarizer):
