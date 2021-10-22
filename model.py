@@ -119,7 +119,7 @@ class EmotionTagger(pl.LightningModule):
         logits = torch.sigmoid(logits)
         loss = 0
         if labels is not None:
-            loss = torch.nn.functional.binary_cross_entropy(
+            loss = torch.nn.functional.binary_cross_entropy_with_logits(
                 input=logits,
                 target=labels,
                 weight=class_balanced_loss(
