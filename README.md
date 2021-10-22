@@ -2,7 +2,7 @@
 
 This repository contains scripts for downloading, translating the datasets and fine-tuning a bert model for portuguese
 emotion classification based on the [GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions) dataset.
-Currently only the original taxonomy for 27 emotions + neutral category is supported.
+Original and Ekman taxonomy are supported.
 
 ## Requirements
 
@@ -45,7 +45,11 @@ Beta parameter for weighing method Class-Balanced Loss (default = 0.999)\
 --no_cuda\
 If passed True, gpu will not be used (default = False)\
 --seed\
-Seed for pseudo-random number generation for pytorch, numpy, python.random (default = 42)
+Seed for pseudo-random number generation for pytorch, numpy, python.random (default = 42)\
+--taxonomy\
+Select which taxonomy to be used, original or ekman (default = "original")\
+--resume_from_checkpoint\
+If passed, should be a path for a checkpoint file (default = None)
 
 # Using Fine-tuned Model
 ```python
