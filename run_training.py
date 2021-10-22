@@ -30,6 +30,8 @@ if __name__ == "__main__":
                         help='Seed for pseudo-random number generation for pytorch, numpy, python.random (default = 42)')
     parser.add_argument("--taxonomy", type=str, default='original',
                         help='Select which taxonomy to be used original or ekman (default = "original")')
+    parser.add_argument("--resume_from_checkpoint", type=str, default=None,
+                        help='If passed, should be a path for a checkpoint file (default = None)')
 
     args = parser.parse_args()
 
@@ -98,6 +100,7 @@ if __name__ == "__main__":
         callbacks=[checkpoint_callback],
         max_epochs=args.n_epochs,
         gpus=1 if torch.cuda.is_available() and not args.no_cuda else 0,
+        resume_from_checkpoint=args.resume_from_checkpoint,
         progress_bar_refresh_rate=30
     )
 
