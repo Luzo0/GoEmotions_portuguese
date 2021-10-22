@@ -116,7 +116,6 @@ class EmotionTagger(pl.LightningModule):
     def forward(self, input_ids, attention_mask, labels=None):
         output = self.bert(input_ids, attention_mask=attention_mask)
         logits = output.logits
-        logits = torch.sigmoid(logits)
         loss = 0
         if labels is not None:
             loss = torch.nn.functional.binary_cross_entropy_with_logits(
