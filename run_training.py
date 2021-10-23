@@ -32,6 +32,8 @@ if __name__ == "__main__":
                         help='Select which taxonomy to be used original or ekman (default = "original")')
     parser.add_argument("--resume_from_checkpoint", type=str, default=None,
                         help='If passed, should be a path for a checkpoint file (default = None)')
+    parser.add_argument("--accumulate_grad_batches", type=int, default=None,
+                        help='If passed, will accumulate gradients for the k epochs provided (default = None)')
 
     args = parser.parse_args()
 
@@ -101,6 +103,7 @@ if __name__ == "__main__":
         max_epochs=args.n_epochs,
         gpus=1 if torch.cuda.is_available() and not args.no_cuda else 0,
         resume_from_checkpoint=args.resume_from_checkpoint,
+        accumulate_grad_batches=args.accumulate_grad_batches,
         progress_bar_refresh_rate=30
     )
 
