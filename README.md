@@ -49,7 +49,9 @@ Seed for pseudo-random number generation for pytorch, numpy, python.random (defa
 --taxonomy\
 Select which taxonomy to be used, original or ekman (default = "original")\
 --resume_from_checkpoint\
-If passed, should be a path for a checkpoint file (default = None)
+If passed, should be a path for a checkpoint file (default = None)\
+--accumulate_grad_batches\
+If passed, will accumulate gradients for the k epochs provided (default = 1)
 
 # Using Fine-tuned Model
 ```python
