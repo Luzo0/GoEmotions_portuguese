@@ -32,8 +32,8 @@ if __name__ == "__main__":
                         help='Select which taxonomy to be used original or ekman (default = "original")')
     parser.add_argument("--resume_from_checkpoint", type=str, default=None,
                         help='If passed, should be a path for a checkpoint file (default = None)')
-    parser.add_argument("--accumulate_grad_batches", type=int, default=None,
-                        help='If passed, will accumulate gradients for the k epochs provided (default = None)')
+    parser.add_argument("--accumulate_grad_batches", type=int, default=1,
+                        help='If passed, will accumulate gradients for the k epochs provided (default = 1)')
 
     args = parser.parse_args()
 
