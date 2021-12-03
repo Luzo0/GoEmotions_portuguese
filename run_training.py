@@ -103,8 +103,7 @@ if __name__ == "__main__":
         max_epochs=args.n_epochs,
         gpus=1 if torch.cuda.is_available() and not args.no_cuda else 0,
         resume_from_checkpoint=args.resume_from_checkpoint,
-        accumulate_grad_batches=args.accumulate_grad_batches,
-        progress_bar_refresh_rate=30
+        accumulate_grad_batches=args.accumulate_grad_batches
     )
 
     if args.taxonomy == 'original':
