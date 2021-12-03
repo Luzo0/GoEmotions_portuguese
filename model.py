@@ -136,7 +136,7 @@ class EmotionTagger(pl.LightningModule):
         labels = batch["labels"]
         loss, logits = self(input_ids, attention_mask, labels)
         self.log("train_loss", loss, prog_bar=True)
-        return {"loss": loss, "predictions": logits, "labels": labels}
+        return {"loss": loss, "predictions": logits.detach(), "labels": labels}
 
     def validation_step(self, batch, batch_idx):
         input_ids = batch["input_ids"]
