@@ -36,7 +36,6 @@ class EmotionDataset(torch.utils.data.Dataset):
             return_tensors='pt',
         )
         return dict(
-            text=text,
             input_ids=encoding["input_ids"].flatten(),
             attention_mask=encoding["attention_mask"].flatten(),
             labels=torch.FloatTensor(labels)
