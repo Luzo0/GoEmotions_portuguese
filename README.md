@@ -1,17 +1,17 @@
 # GoEmotions for Portuguese
 
-This repository contains scripts for downloading, translating the datasets and fine-tuning a bert model for portuguese
+This repository contains scripts for downloading, translating the datasets and perform the fine-tuning of a BERT model for portuguese
 emotion classification based on the [GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions) dataset.
 Original and Ekman taxonomy are supported.
 
-## Requirements
+## Step 1: Requirements
 
 Create an environment, clone this repository and run:
 ```
 pip install -r requirements.txt
 ```
 
-## Dataset
+## Step 2: Dataset
 
 First you should download and translate the original dataset, for this run the following script:
 ```
@@ -19,7 +19,10 @@ python translate.py
 ```
 When the script finishes all the data needed should be on the dataset folder.
 
-## Fine-tuning
+## Step 3: Fine-tuning
+
+Skip this part if you don't want to perform the fine-tuning of the model
+(use one of the available models in step 4)
 
 To perform the fine-tuning you should run:
 ```
@@ -53,11 +56,23 @@ If passed, should be a path for a checkpoint file (default = None)\
 --accumulate_grad_batches\
 If passed, will accumulate gradients for the k epochs provided (default = 1)
 
-# Using Fine-tuned Model
+## Step 4: Fine-tuned Model Files
+
+Skip this part if you performed the fine-tuning in step 3
+
+Links for the fine-tuned models(this models are only for original taxonomy):
+
+[BERTimbau_base_GoEmotions_portuguese](https://drive.google.com/file/d/1vco6ANFYP5UkvkakqoySC71lTb8i3Oe5/view?usp=sharing)
+[BERTimbau_large_GoEmotions_portuguese](https://drive.google.com/file/d/1srCYkS3dMR41BY0Y3WzMpCydJECfonUj/view?usp=sharing)
+
+Unzip and put all the files in the 'fine_tuned_model' folder 
+
+# Step 5: Using Fine-tuned Model
 ```python
 from transformers import BertTokenizer, BertForSequenceClassification, pipeline
 from pprint import pprint
 
+#Folder path containing the fine-tuned model files
 model_path = 'fine_tuned_model'
 
 model = BertForSequenceClassification.from_pretrained(model_path)
