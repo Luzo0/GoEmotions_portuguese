@@ -63,6 +63,7 @@ Skip this part if you performed the fine-tuning in step 3
 Links for the fine-tuned models(this models are only for original taxonomy):
 
 [BERTimbau_base_GoEmotions_portuguese](https://drive.google.com/file/d/1vco6ANFYP5UkvkakqoySC71lTb8i3Oe5/view?usp=sharing)
+
 [BERTimbau_large_GoEmotions_portuguese](https://drive.google.com/file/d/1srCYkS3dMR41BY0Y3WzMpCydJECfonUj/view?usp=sharing)
 
 Unzip and put all the files in the 'fine_tuned_model' folder 
