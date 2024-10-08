@@ -4,9 +4,16 @@ This repository contains scripts for downloading, translating the datasets and p
 emotion classification based on the [GoEmotions](https://github.com/google-research/google-research/tree/master/goemotions) dataset.
 Original and Ekman taxonomy are supported.
 
-## Step 1: Requirements
+## Step 1: Install
 
-Create an environment, clone this repository and run:
+Create an environment (example using conda)
+```
+conda create -n goemotions python=3.9 pip=24.0
+```
+```
+conda activate goemotions
+```
+clone this repository and run:
 ```
 pip install -r requirements.txt
 ```
@@ -104,3 +111,4 @@ pprint(predictions)
 #  [{'label': 'admiração', 'score': 0.9569578170776367}],
 #  [{'label': 'raiva', 'score': 0.6997460126876831}]]
 ```
+
