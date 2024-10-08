@@ -7,9 +7,9 @@ from sklearn.preprocessing import MultiLabelBinarizer
 
 
 def prepare_datasets(path: str, n_classes: int, taxonomy: str):
-    df_train = pd.read_csv(os.path.join(path, 'train.tsv'), sep="\t", usecols=(1, 2))
-    df_validation = pd.read_csv(os.path.join(path, 'dev.tsv'), sep="\t", usecols=(1, 2))
-    df_test = pd.read_csv(os.path.join(path, 'test.tsv'), sep="\t", usecols=(1, 2))
+    df_train = pd.read_csv(os.path.join(path, 'train.tsv'), sep="\t")
+    df_validation = pd.read_csv(os.path.join(path, 'dev.tsv'), sep="\t")
+    df_test = pd.read_csv(os.path.join(path, 'test.tsv'), sep="\t")
     df_train['labels'] = df_train['labels'].apply(correct_labels_in_dataset)
     df_test['labels'] = df_test['labels'].apply(correct_labels_in_dataset)
     df_validation['labels'] = df_validation['labels'].apply(correct_labels_in_dataset)
